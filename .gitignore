@@ -5,6 +5,7 @@ out/
 
 
 .gradle
+.intellijPlatform
 .idea
 .qodana
 build

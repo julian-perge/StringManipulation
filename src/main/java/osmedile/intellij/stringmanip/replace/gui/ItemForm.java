@@ -1,7 +1,6 @@
 package osmedile.intellij.stringmanip.replace.gui;
 
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.actionSystem.impl.ActionToolbarImpl;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.util.ui.JBEmptyBorder;
 import org.jetbrains.annotations.NonNls;
@@ -61,12 +60,11 @@ public class ItemForm extends JPanel implements DataProvider {
 		newGroup.add(actionManager.getAction("StringManipulation.ToolWindow.Replace.Item"));
 
 		ActionToolbar actionToolbar = actionManager.createActionToolbar("StringManipulation-ReplaceToolWindow-Item", newGroup, true);
-		final ActionToolbarImpl editorToolbar = ((ActionToolbarImpl) actionToolbar);
-		editorToolbar.setOpaque(false);
-		editorToolbar.setBorder(new JBEmptyBorder(0, 0, 0, 0));
-		editorToolbar.setTargetComponent(this);
+		actionToolbar.getComponent().setOpaque(false);
+		actionToolbar.getComponent().setBorder(new JBEmptyBorder(0, 0, 0, 0));
+		actionToolbar.setTargetComponent(this);
 		actionToolbar.setLayoutPolicy(ActionToolbar.AUTO_LAYOUT_POLICY);
-		return editorToolbar;
+		return actionToolbar;
 	}
 
 	private void createUIComponents() {

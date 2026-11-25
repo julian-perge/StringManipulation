@@ -7,8 +7,6 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.ui.Messages;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.snakeyaml.engine.v2.api.Dump;
 import org.snakeyaml.engine.v2.api.DumpSettings;
 import org.snakeyaml.engine.v2.common.FlowStyle;
@@ -21,6 +19,7 @@ import org.yaml.snakeyaml.representer.Representer;
 import org.yaml.snakeyaml.resolver.Resolver;
 import osmedile.intellij.stringmanip.AbstractStringManipAction;
 import osmedile.intellij.stringmanip.StringManipulationBundle;
+import osmedile.intellij.stringmanip.utils.JsonUtils;
 
 import javax.swing.*;
 import java.util.Map;
@@ -43,16 +42,7 @@ public class ConvertJsonYamlAction extends AbstractStringManipAction<Object> {
     }
 
     protected String jsonToYaml(String text) {
-        Object obj;
-        if (text.trim().startsWith("{")) {
-            JSONObject jsonObject = new JSONObject(text);
-            obj = jsonObject.toMap();
-        } else {
-            JSONArray jsonArray = new JSONArray(text);
-            obj = jsonArray.toList();
-        }
-
-        return getYamlDump().dumpToString(obj).trim();
+        return getYamlDump().dumpToString(JsonUtils.parse(text)).trim();
     }
 
     protected String yamlToJson(String selectedText) {

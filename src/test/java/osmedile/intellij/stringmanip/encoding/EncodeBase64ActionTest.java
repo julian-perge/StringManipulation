@@ -89,7 +89,8 @@ public class EncodeBase64ActionTest {
 		base64EncodingDialog.zip.setSelected(true);
 
 		String transform = new EncodeBase64Action().transform("Hello world!", base64EncodingDialog);
-		assertEquals("H4sIAAAAAAAAAPNIzcnJVyjPL8pJUQQAlRmFGwwAAAA=", transform);
+		// Since Java 16, GZIPOutputStream writes 255 ("unknown") in the OS byte of the gzip header (JDK-8244706).
+		assertEquals("H4sIAAAAAAAA//NIzcnJVyjPL8pJUQQAlRmFGwwAAAA=", transform);
 	}
 
 	@Test

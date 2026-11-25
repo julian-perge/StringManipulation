@@ -2,12 +2,11 @@ package osmedile.intellij.stringmanip.replace.gui;
 
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.actionSystem.impl.ActionToolbarImpl;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.util.ui.JBEmptyBorder;
-import org.jdesktop.swingx.VerticalLayout;
+import com.intellij.ui.components.panels.VerticalLayout;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,12 +61,11 @@ public class CompositeForm extends JBPanel implements Disposable, DataProvider {
 		newGroup.add(actionManager.getAction("StringManipulation.ToolWindow.Replace"));
 
 		ActionToolbar actionToolbar = actionManager.createActionToolbar("StringManipulation-ReplaceToolWindow-CompositeForm", newGroup, true);
-		final ActionToolbarImpl editorToolbar = ((ActionToolbarImpl) actionToolbar);
-		editorToolbar.setOpaque(false);
-		editorToolbar.setBorder(new JBEmptyBorder(0, 0, 0, 0));
-		editorToolbar.setTargetComponent(this);
+		actionToolbar.getComponent().setOpaque(false);
+		actionToolbar.getComponent().setBorder(new JBEmptyBorder(0, 0, 0, 0));
+		actionToolbar.setTargetComponent(this);
 		actionToolbar.setLayoutPolicy(ActionToolbar.AUTO_LAYOUT_POLICY);
-		return editorToolbar;
+		return actionToolbar;
 	}
 
 	public void initModel(ReplaceCompositeModel compositeModel) {

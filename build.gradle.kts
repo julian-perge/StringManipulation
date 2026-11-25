@@ -3,54 +3,24 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
-tasks {
-    buildSearchableOptions {
-        enabled = false
-    }
-    compileJava {
-        options.encoding = "UTF-8"
-    }
-    compileTestJava {
-        options.encoding = "UTF-8"
-    }
-}
-
-
-group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").get()
-
-
 plugins {
     id("java") // Java support
-//    alias(libs.plugins.kotlin) // Kotlin support
     alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
-//    alias(libs.plugins.qodana) // Gradle Qodana Plugin
-//    alias(libs.plugins.kover) // Gradle Kover Plugin
 }
 
 group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
 
-// Set the JVM language level used to build the project.
-//kotlin {
-//    jvmToolchain(21)
-//}
-
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        options.encoding = "UTF-8"
     }
-//    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-//        kotlinOptions.jvmTarget = "17"
-//    }
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -82,35 +52,30 @@ dependencies {
 
         testFramework(TestFrameworkType.Platform)
     }
-//    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-//    testImplementation("org.junit.jupiter:junit-jupiter")
 
-    implementation(
-        fileTree(
-            "libs",
-        )
-    )
     // https://mvnrepository.com/artifact/com.github.inamik.text.tables/inamik-text-tables
     implementation("com.github.inamik.text.tables:inamik-text-tables:0.8")
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.code.gson:gson:2.15.0")
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-text
-    implementation("org.apache.commons:commons-text:1.12.0")
+    implementation("org.apache.commons:commons-text:1.15.0")
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("org.apache.commons:commons-lang3:3.22.0")
 
-    implementation("uk.com.robust-it:cloning:1.9.12")
+    implementation("io.github.kostaskougios:cloning:1.13.0")
 
-    // https://mvnrepository.com/artifact/junit/junit
-    testImplementation("junit:junit:4.13.2")
+    // The IDE stopped putting Jackson on the plugin classpath in 2026.3, so the plugin ships its own copy.
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.23.0")
 }
 
 
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
 intellijPlatform {
+    buildSearchableOptions = false
+
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
@@ -164,6 +129,8 @@ intellijPlatform {
 
     pluginVerification {
         ides {
+            // The oldest supported release, plus the newer releases that the plugin also claims to support.
+            create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
             recommended()
         }
     }
@@ -177,31 +144,16 @@ changelog {
 }
 
 
-// Configure Gradle Kover Plugin - read more: https://github.com/Kotlin/kotlinx-kover#configuration
-//kover {
-//    reports {
-//        total {
-//            xml {
-//                onCheck = true
-//            }
-//        }
-//    }
-//}
-
 tasks {
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
 
+    // The Chinese bundle ships only in the "-Chinese" plugin version, see gradle.properties.
     processResources {
-        finalizedBy("deleteChineseBundle")
-    }
-}
-
-
-tasks {
-    wrapper {
-        gradleVersion = providers.gradleProperty("gradleVersion").get()
+        if (!version.toString().contains("Chinese")) {
+            exclude("messages/StringManipulationBundle_zh.properties")
+        }
     }
 
     publishPlugin {
@@ -227,14 +179,5 @@ intellijPlatformTesting {
                 robotServerPlugin()
             }
         }
-    }
-}
-
-tasks.create<Delete>("deleteChineseBundle") {
-    if (!version.toString().contains("Chinese")) {
-        println("Running deleteChineseBundle")
-        val paths = file("build/resources/main/messages/StringManipulationBundle_zh.properties")
-        println("Deleting: " + paths)
-        delete(paths)
     }
 }

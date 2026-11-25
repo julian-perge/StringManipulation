@@ -8,7 +8,6 @@ import com.intellij.openapi.ui.Messages;
 import org.apache.commons.lang3.CharEncoding;
 import osmedile.intellij.stringmanip.AbstractStringManipAction;
 import osmedile.intellij.stringmanip.StringManipulationBundle;
-import ro.isdc.wro.model.resource.processor.support.JSMin;
 
 import javax.swing.*;
 import java.io.ByteArrayInputStream;

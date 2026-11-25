@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [9.17.0] - 2026-11-25
+
+- Requires a 2026.3 or later IDE
+- Minify JSON and JSON to YAML now show an error for trailing commas and for text after the JSON value
+- URL Decode (RFC 3986) no longer corrupts non-ASCII characters
+
 ## [9.16.0] - 2025-08-06
 
 - Exception fix
@@ -44,7 +50,9 @@
 
 - Gradle Build
 
-[Unreleased]: https://github.com/krasa/StringManipulation/compare/v9.16.0...HEAD
+[Unreleased]: https://github.com/krasa/StringManipulation/compare/v9.17.0...HEAD
+
+[9.17.0]: https://github.com/krasa/StringManipulation/compare/v9.16.0...v9.17.0
 
 [9.16.0]: https://github.com/krasa/StringManipulation/compare/v9.15.0...v9.16.0
 [9.15.0]: https://github.com/krasa/StringManipulation/compare/v9.14.1...v9.15.0

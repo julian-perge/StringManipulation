@@ -2,6 +2,7 @@ package osmedile.intellij.stringmanip;
 
 import com.intellij.ide.IdeEventQueue;
 import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.ex.ActionUtil;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.NotNull;
@@ -96,8 +97,8 @@ public class RepeatAction extends MyEditorAction {
 					if (withModel()) {
 						RepeatAction.model = pair.getSecond();
 					}
-					AnActionEvent anActionEvent = new AnActionEvent(null, dataContext, "osmedile.intellij.stringmanip.RepeatAction", new Presentation(), ActionManager.getInstance(), 0);
-					anAction.actionPerformed(anActionEvent);
+					AnActionEvent anActionEvent = AnActionEvent.createEvent(dataContext, new Presentation(), "osmedile.intellij.stringmanip.RepeatAction", ActionUiKind.NONE, null);
+					ActionUtil.performAction(anAction, anActionEvent);
 				} finally {
 					RepeatAction.model = null;
 				}

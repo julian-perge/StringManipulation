@@ -1,7 +1,7 @@
 // Copyright 2000-2020 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package osmedile.intellij.stringmanip.replace.gui;
 
-import com.intellij.find.FindBundle;
+import osmedile.intellij.stringmanip.StringManipulationBundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.ui.components.JBTextArea;
 import org.jetbrains.annotations.NotNull;
@@ -26,17 +26,17 @@ public class FromTextArea extends MySearchTextArea {
 		MySwitchStateToggleAction myCaseSensitiveAction =
 				new MySwitchStateToggleAction(
 						AllIcons.Actions.MatchCase, AllIcons.Actions.MatchCaseHovered, AllIcons.Actions.MatchCaseSelected,
-						caseSensitive, () -> Boolean.TRUE, FindBundle.message("find.popup.case.sensitive"), itemForm.history);
+						caseSensitive, () -> Boolean.TRUE, StringManipulationBundle.message("find.popup.case.sensitive"), itemForm.history);
 		wholeWords = new AtomicBoolean();
 		MySwitchStateToggleAction myWholeWordsAction =
 				new MySwitchStateToggleAction(
 						AllIcons.Actions.Words, AllIcons.Actions.WordsHovered, AllIcons.Actions.WordsSelected,
-						wholeWords, () -> Boolean.TRUE, FindBundle.message("find.whole.words"), itemForm.history);
+						wholeWords, () -> Boolean.TRUE, StringManipulationBundle.message("find.whole.words"), itemForm.history);
 		regex = new AtomicBoolean();
 		MySwitchStateToggleAction myRegexAction =
 				new MySwitchStateToggleAction(
 						AllIcons.Actions.Regex, AllIcons.Actions.RegexHovered, AllIcons.Actions.RegexSelected,
-						regex, () -> Boolean.TRUE, FindBundle.message("find.regex"), itemForm.history);
+						regex, () -> Boolean.TRUE, StringManipulationBundle.message("find.regex"), itemForm.history);
 
 
 		setExtraActions(myCaseSensitiveAction, myWholeWordsAction, myRegexAction);

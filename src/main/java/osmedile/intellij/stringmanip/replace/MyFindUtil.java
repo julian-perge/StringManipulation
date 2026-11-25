@@ -3,7 +3,7 @@
 
 package osmedile.intellij.stringmanip.replace;
 
-import com.intellij.find.FindBundle;
+import osmedile.intellij.stringmanip.StringManipulationBundle;
 import com.intellij.find.FindManager;
 import com.intellij.find.FindModel;
 import com.intellij.find.FindResult;
@@ -51,7 +51,7 @@ public final class MyFindUtil {
 				toReplace = findManager.getStringToReplace(foundString, model, startOffset, document.getCharsSequence());
 			} catch (FindManager.MalformedReplacementStringException e) {
 				if (!ApplicationManager.getApplication().isUnitTestMode()) {
-					Messages.showErrorDialog(project, e.getMessage(), FindBundle.message("find.replace.invalid.replacement.string.title"));
+					Messages.showErrorDialog(project, e.getMessage(), StringManipulationBundle.message("find.replace.invalid.replacement.string.title"));
 				}
 				break;
 			}

@@ -11,9 +11,11 @@
     <!--branch 131 - WebStorm 7, PyCharm 3.0, PhpStorm 7-->
 
     <depends>com.intellij.modules.platform</depends>
-    <depends optional="true">com.intellij.modules.java</depends>
-    <depends optional="true">com.intellij.modules.json</depends>
-    <depends optional="true">com.intellij.properties</depends>
+    <!-- Each optional dependency makes the classes of that plugin visible. The IDE requires a config-file for it,
+         and these files are empty because the dependency adds no extensions. -->
+    <depends optional="true" config-file="stringManipulation-java.xml">com.intellij.modules.java</depends>
+    <depends optional="true" config-file="stringManipulation-json.xml">com.intellij.modules.json</depends>
+    <depends optional="true" config-file="stringManipulation-properties.xml">com.intellij.properties</depends>
 
     <resource-bundle>messages.StringManipulationBundle</resource-bundle>
 

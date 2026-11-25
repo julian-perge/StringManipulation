@@ -1,7 +1,7 @@
 // Copyright 2000-2020 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package osmedile.intellij.stringmanip.replace.gui;
 
-import com.intellij.find.FindBundle;
+import osmedile.intellij.stringmanip.StringManipulationBundle;
 import com.intellij.icons.AllIcons;
 import com.intellij.ui.components.JBTextArea;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +24,7 @@ public class ToTextArea extends MySearchTextArea {
 		MySwitchStateToggleAction myCaseSensitiveAction =
 				new MySwitchStateToggleAction(
 						AllIcons.Actions.PreserveCase, AllIcons.Actions.PreserveCaseHover, AllIcons.Actions.PreserveCaseSelected,
-						preserveCase, () -> Boolean.TRUE, FindBundle.message("find.options.replace.preserve.case"), itemForm.history);
+						preserveCase, () -> Boolean.TRUE, StringManipulationBundle.message("find.options.replace.preserve.case"), itemForm.history);
 		setExtraActions(myCaseSensitiveAction);
 		load(model);
 	}

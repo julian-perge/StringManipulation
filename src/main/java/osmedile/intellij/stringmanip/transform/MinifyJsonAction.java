@@ -6,10 +6,9 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.ui.Messages;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import osmedile.intellij.stringmanip.AbstractStringManipAction;
 import osmedile.intellij.stringmanip.StringManipulationBundle;
+import osmedile.intellij.stringmanip.utils.JsonUtils;
 
 import javax.swing.*;
 import java.util.Map;
@@ -34,11 +33,7 @@ public class MinifyJsonAction extends AbstractStringManipAction<Object> {
 			return selectedText;
 		}
 
-		if (trim.startsWith("[")) {
-			return new JSONArray(selectedText).toString();
-		} else {
-			return new JSONObject(selectedText).toString();
-		}
+		return JsonUtils.minify(selectedText);
 	}
 
 	@Override

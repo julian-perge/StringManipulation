@@ -1,7 +1,6 @@
 // Copyright 2000-2020 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package osmedile.intellij.stringmanip.replace.gui.commonn;
 
-import com.intellij.find.FindBundle;
 import com.intellij.find.FindInProjectSettings;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.DataManager;
@@ -273,7 +272,7 @@ public abstract class MySearchTextArea extends JPanel implements PropertyChangeL
 			JPanel buttonsGrid = new NonOpaquePanel(new GridLayout(1, actions.length, JBUI.scale(4), 0));
 			for (AnAction action : actions) {
 				if (action instanceof TooltipDescriptionProvider) {
-					action.getTemplatePresentation().setDescription(FindBundle.message("find.embedded.buttons.description"));
+					action.getTemplatePresentation().setDescription(StringManipulationBundle.message("find.embedded.buttons.description"));
 				}
 				ActionButton button = new MyActionButton(action, true);
 				addedButtons.add(button);
@@ -554,7 +553,6 @@ public abstract class MySearchTextArea extends JPanel implements PropertyChangeL
 			getTemplatePresentation().setSelectedIcon(selectedIcon);
 			ShortcutSet shortcut = ActionUtil.getMnemonicAsShortcut(this);
 			if (shortcut != null) {
-				setShortcutSet(shortcut);
 				registerCustomShortcutSet(shortcut, MySearchTextArea.this);
 			}
 		}
