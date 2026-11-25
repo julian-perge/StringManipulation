@@ -162,6 +162,55 @@ Provides actions for text manipulation:
 
 ------
 
+## This fork
+
+This fork of [krasa/StringManipulation](https://github.com/krasa/StringManipulation) targets IntelliJ-based IDEs 2026.3 (build 263) and newer. It keeps nothing for older IDEs.
+
+### Compatibility
+
+- Version 9.17.0. The plugin.xml has since-build 263 and no until-build.
+- The build compiles against IntelliJ IDEA (IU) 2026.3 on Java 25. IntelliJ IDEA Community has no 2026.3 release.
+- The Plugin Verifier checks IU 2026.3 and the recommended newer build.
+
+### Build and test
+
+Use JDK 25, for example `JAVA_HOME=~/.sdkman/candidates/java/25.0.4-tem`.
+
+```bash
+./gradlew test buildPlugin verifyPlugin
+```
+
+The plugin zip is `build/distributions/StringManipulation-9.17.0.zip`.
+
+To check that the plugin really loads, run `./gradlew runIde`, open a file, press Alt+M, close the IDE, and then run:
+
+```bash
+scripts/check-plugin-load.sh .intellijPlatform/sandbox/StringManipulation/IU-2026.3/log_runIde/idea.log
+```
+
+The script fails when the IDE is not a 263 build, when the plugin did not load or its startup activity did not run, or when a warning or error in the log names the plugin. A pass does not prove that each action works.
+
+### Changes from upstream
+
+- Gradle 9.9.2, IntelliJ Platform Gradle Plugin 2.20.1 and changelog plugin 2.5.0.
+- The plugin bundles Jackson, because 2026.3 no longer puts it on the plugin classpath.
+- The old `libs/shade.jar` and the org.json fork are gone. JSMin and the RFC 3986 encoder are now source code, and the JSON actions use Jackson.
+- The code no longer uses internal or override-only IDE APIs that the verifier rejects.
+- The "Paste Snake Cased" menu entry is removed, because its class was never committed. `PluginXmlTest` fails when plugin.xml names a class that does not exist.
+
+### Behavior changes
+
+- Minify JSON and Convert Between JSON and YAML show an error for invalid JSON: trailing commas, text after the value, unquoted values, `;` separators, hex or leading-zero numbers, `TRUE` and `NaN`. The old library often changed or dropped such input without a message.
+- Minify JSON keeps number text as written (`1.50` stays `1.50`) and does not escape `</`.
+- JSON to YAML writes `-0.0` as `0.0`.
+- Decode URL (RFC 3986) keeps non-ASCII characters.
+
+### Verified in a 2026.3 sandbox IDE
+
+These actions gave the expected output in the runIde sandbox (IU-263.7307.200): JSON to YAML, YAML to JSON, JSON Sort, Encode and Decode Hex, MD5 Hex, Minify JavaScript, Encode and Decode URL (RFC 3986), Escape Java, Minify JSON, the Sort Lines dialog, To UPPER CASE and Repeat Last Action. Most other actions were not run in an IDE. The unit tests (954) cover them.
+
+------
+
 Privacy Notice: No personal data is collected and no source code is transmitted to any server
 
 ------
