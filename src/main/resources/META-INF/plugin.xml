@@ -3,13 +3,6 @@
     <name>String Manipulation</name>
     <vendor email="vojta.krasa@gmail.com">Maintained by: Vojtech Krasa; original author: Olivier Smedile</vendor>
 
-    <!--branch 143 - IntelliJ IDEA 15, WebStorm 11, PyCharm 5, PhpStorm 10, RubyMine 8, AppCode 3.3, CLion 1.2, DataGrip 1.0-->
-    <!--branch 141 - IntelliJ IDEA 14.1, WebStorm 10, PyCharm 4.1, Android Studio 1.3-->
-    <!--branch 139 - IntelliJ IDEA 14, WebStorm 9, PyCharm 4, PhpStorm 8, RubyMine 7-->
-    <!--branch 135 - IntelliJ IDEA 13.1, WebStorm 8-->
-    <!--branch 133 - IntelliJ IDEA 13, PyCharm 3.1, WebStorm 7, PhpStorm 7-->
-    <!--branch 131 - WebStorm 7, PyCharm 3.0, PhpStorm 7-->
-
     <depends>com.intellij.modules.platform</depends>
     <!-- Each optional dependency makes the classes of that plugin visible. The IDE requires a config-file for it,
          and these files are empty because the dependency adds no extensions. -->
@@ -755,10 +748,6 @@
                 <action id="StringManipulation.PasteCamelCased"
                         class="osmedile.intellij.stringmanip.paste.PasteCamelCasedAction"
                         text="Paste - camelCased (Capitalized if needed)"
-                />
-                <action id="StringManipulation.PasteSnakeCased"
-                        class="osmedile.intellij.stringmanip.paste.PasteSnakeCasedAction"
-                        text="Paste - snake__cased"
                 />
                 <action id="StringManipulation.PasteAndKeepSelection"
                         class="osmedile.intellij.stringmanip.paste.PasteAndKeepSelectionAction"
